@@ -268,6 +268,13 @@ def process_directory(
     audio_bitrate_limit,
 ):
     for root, dirs, files in os.walk(directory):
+        
+        files = sorted(
+            files,
+            key=lambda f: os.path.getmtime(os.path.join(root, f)),
+            reverse=True
+        )
+                
         for filename in files:
             file_path = os.path.join(root, filename)
             if is_video_file_mimetypes(file_path):
